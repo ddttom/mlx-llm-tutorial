@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLX LLM Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MLX LLM Demo</h1>
+            <p>Interact with LLMs powered by Apple's MLX framework</p>
+        </header>
+
+        <main>
+            <div class="model-selection">
+                <h2>Select Model</h2>
+                <div class="model-options">
+                    <div class="model-card selected" data-model="simple-llm">
+                        <h3>Simple LLM</h3>
+                        <p>A small character-level language model trained on Shakespeare</p>
+                        <div class="model-details">
+                            <span>Size: Small</span>
+                            <span>Parameters: ~500K</span>
+                            <span>Context: 63 tokens</span>
+                        </div>
+                    </div>
+                    <div class="model-card" data-model="fine-tuned-llm">
+                        <h3>Fine-tuned LLM</h3>
+                        <p>A pre-trained model fine-tuned on custom data</p>
+                        <div class="model-details">
+                            <span>Size: Medium</span>
+                            <span>Parameters: ~7M</span>
+                            <span>Context: 512 tokens</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="generation-section">
+                <h2>Text Generation</h2>
+                <div class="input-area">
+                    <label for="prompt">Enter Prompt:</label>
+                    <textarea id="prompt" placeholder="Type your prompt here..."></textarea>
+                </div>
+
+                <div class="generation-options">
+                    <div class="option">
+                        <label for="temperature">Temperature:</label>
+                        <input type="range" id="temperature" min="0.1" max="1.5" step="0.1" value="0.7">
+                        <span id="temperature-value">0.7</span>
+                    </div>
+                    <div class="option">
+                        <label for="max-length">Max Length:</label>
+                        <input type="range" id="max-length" min="10" max="500" step="10" value="100">
+                        <span id="max-length-value">100</span>
+                    </div>
+                    <div class="option">
+                        <label for="top-p">Top P:</label>
+                        <input type="range" id="top-p" min="0.1" max="1.0" step="0.1" value="0.9">
+                        <span id="top-p-value">0.9</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="generate-btn">Generate</button>
+                    <button id="clear-btn">Clear</button>
+                </div>
+
+                <div class="output-area">
+                    <h3>Generated Text</h3>
+                    <div id="loading" class="loading hidden">
+                        <div class="spinner"></div>
+                        <p>Generating...</p>
+                    </div>
+                    <div id="output" class="output"></div>
+                </div>
+            </div>
+
+            <div class="visualization-section">
+                <h2>Model Visualization</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="attention">Attention Visualization</button>
+                    <button class="tab-btn" data-tab="tokens">Token Probabilities</button>
+                </div>
+                <div class="tab-content">
+                    <div id="attention-tab" class="tab-pane active">
+                        <div class="attention-map">
+                            <p class="placeholder-text">Generate text to see attention visualization</p>
+                            <div id="attention-heatmap" class="heatmap"></div>
+                        </div>
+                    </div>
+                    <div id="tokens-tab" class="tab-pane">
+                        <div class="token-probs">
+                            <p class="placeholder-text">Generate text to see token probabilities</p>
+                            <div id="token-chart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>This demo is part of the MLX LLM Tutorial. <a href="../docs/resources.md">Learn more</a></p>
+            <p>Powered by <a href="https://github.com/ml-explore/mlx" target="_blank">Apple MLX</a></p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

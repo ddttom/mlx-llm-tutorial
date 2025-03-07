@@ -1,0 +1,326 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+.python-version
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+*.nbconvert.ipynb
+.jupyter/
+jupyter_notebook_config.py
+
+# Model files and datasets
+*.npz
+*.bin
+*.pt
+*.pth
+*.onnx
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+shakespeare.txt
+*.safetensors
+*.mlx
+*.mlpackage
+*.mlmodel
+model_weights/
+checkpoints/
+pretrained/
+embeddings/
+vectors/
+*.vec
+*.npy
+*.npz
+*.arrow
+*.feather
+*.parquet
+*.zarr
+*.lmdb
+
+# MLX specific
+.mlx_cache/
+mlx_runs/
+mlx_logs/
+mlx_output/
+mlx_checkpoints/
+mlx_models/
+
+# Experiment tracking
+runs/
+wandb/
+mlruns/
+.aim/
+lightning_logs/
+tb_logs/
+ray_results/
+tune_results/
+.neptune/
+.comet/
+.clearml/
+.dvc/
+.guild/
+
+# Keep sample dataset
+!sample_dataset.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# Logs
+logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs
+lib-cov
+
+# Coverage directory
+coverage/
+*.lcov
+.nyc_output
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
+
+# TypeScript
+typings/
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn
+.yarn-integrity
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# Flask
+instance/
+.webassets-cache
+
+# Web related
+.cache/
+.parcel-cache/
+dist/
+coverage/
+.rollup.cache/
+.turbo/
+.swc/
+.esbuild/
+
+# Build outputs
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/
+.fusebox/
+.dynamodb/
+.webpack/
+.vite/
+out/
+storybook-static/
+.docusaurus/
+.astro/
+.svelte-kit/
+.vercel/
+.netlify/
+
+# Environment variables
+.env
+.env.test
+.env.local
+.env.development
+.env.test
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+.envrc
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+
+# Generated files
+__generated__/
+generated/
+auto-generated/
+.gen/
+.generated/
+
+# Large files
+*.csv
+*.tsv
+*.jsonl
+large_data/
+data/raw/
+data/processed/
+data/interim/
+data/external/
+data/output/
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.bz2
+*.xz
+*.7z
+*.rar
+
+# Installers
+Miniconda3-latest-MacOSX-arm64.sh
+*.exe
+*.msi
+*.pkg
+*.dmg
+*.deb
+*.rpm
+
+# Documentation
+docs/_build/
+docs/api/
+docs/_autosummary/
+site/
+public/api/
+_site/
+.docz/
+.mkdocs/
+.pdoc/
+.sphinx/
+
+# Browser automation/testing
+.cypress/
+cypress/videos/
+cypress/screenshots/
+.playwright/
+test-results/
+playwright-report/
+selenium-debug.log
+chromedriver.log
+geckodriver.log
+
+# Docker
+.docker/
+docker-compose.override.yml
+docker-compose.*.yml
+!docker-compose.yml
+
+# Cloud/deployment
+.terraform/
+.terragrunt-cache/
+*.tfstate
+*.tfstate.backup
+.pulumi/
+.serverless/
+.amplify/
+.aws-sam/
+.chalice/
+.gcloud/
+.azure/
+.vercel/
+.netlify/
+
+# Project specific
+promptloc/
+.codegpt
+__pycache__
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.pyre/
+.dmypy.json
+dmypy.json

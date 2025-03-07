@@ -1,0 +1,141 @@
+<!-- htmlhint-disable -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLX LLM Tutorial - Documentation</title>
+    <link rel="stylesheet" href="styles/mlx-styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>MLX LLM Tutorial Documentation</h1>
+                <p class="subtitle">Comprehensive documentation for creating Large Language Models with Apple MLX</p>
+                <div>
+                    <a href="index.html" class="cta-button secondary-button">Back to Home</a>
+                    <a href="https://github.com/ddttom/mlx-llm-tutorial" class="cta-button">View on GitHub</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="documentation">
+        <div class="container">
+            <div class="section-header">
+                <h2>Documentation</h2>
+                <p>View the documentation directly in this page</p>
+            </div>
+            
+            <div class="documentation-nav">
+                <button class="doc-nav-button active" data-markdown-path="./docs/installation.md">Installation Guide</button>
+                <button class="doc-nav-button" data-markdown-path="./docs/intro-to-mlx.md">Intro to MLX</button>
+                <button class="doc-nav-button" data-markdown-path="./docs/llm-architecture.md">LLM Architecture</button>
+                <button class="doc-nav-button" data-markdown-path="../tutorials/simple-llm.md">Simple LLM Tutorial</button>
+            </div>
+            
+            <div id="markdown-content" class="markdown-container">
+                <p>Select a document from the navigation above to view its content here.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>MLX LLM Tutorial - A project by Tom Cranstoun</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="https://github.com/ddttom/mlx-llm-tutorial">GitHub</a>
+                <a href="docs/resources.md">Resources</a>
+                <a href="LICENSE">License</a>
+            </div>
+            <p>© 2025 - Released under the MIT License</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import MarkdownRenderer from './scripts/markdown-renderer.js';
+        
+        // Initialize markdown rendering
+        document.addEventListener('DOMContentLoaded', () => {
+            const markdownContainer = document.getElementById('markdown-content');
+            const navButtons = document.querySelectorAll('.doc-nav-button');
+            
+            // Handle navigation button clicks
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Get markdown path from data attribute
+                    const markdownPath = button.getAttribute('data-markdown-path');
+                    
+                    // Render markdown content
+                    if (markdownPath) {
+                        markdownContainer.innerHTML = '<p>Loading content...</p>';
+                        MarkdownRenderer.renderFromUrl(markdownPath, markdownContainer);
+                    }
+                });
+            });
+            
+            // Handle direct links to documentation
+            const handleHashChange = () => {
+                const hash = window.location.hash;
+                if (hash.startsWith('#doc-')) {
+                    const docName = hash.replace('#doc-', '');
+                    
+                    // Find the button that corresponds to this document
+                    let button = null;
+                    
+                    // Check in docs directory
+                    button = document.querySelector(`.doc-nav-button[data-markdown-path*="/docs/${docName}.md"]`);
+                    
+                    // If not found, check in tutorials directory
+                    if (!button) {
+                        button = document.querySelector(`.doc-nav-button[data-markdown-path*="/tutorials/${docName}.md"]`);
+                    }
+                    
+                    // If button found, click it to load the content
+                    if (button) {
+                        button.click();
+                    }
+                }
+            };
+            
+            // Check for hash on page load
+            handleHashChange();
+            
+            // Listen for hash changes
+            window.addEventListener('hashchange', handleHashChange);
+            
+            // Load installation guide by default (since it's marked as active in the HTML)
+            const installationButton = document.querySelector('.doc-nav-button[data-markdown-path="./docs/installation.md"]');
+            if (installationButton && !window.location.hash) {
+                installationButton.click();
+            }
+            
+            // Add event listener for markdown rendered event
+            markdownContainer.addEventListener('markdown-rendered', () => {
+                // Process any markdown links in the rendered content
+                const links = markdownContainer.querySelectorAll('a[href$=".md"]');
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    const docName = href.split('/').pop().replace('.md', '');
+                    link.setAttribute('href', `#doc-${docName}`);
+                    
+                    // Prevent default and handle navigation manually
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        window.location.hash = `doc-${docName}`;
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

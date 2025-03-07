@@ -1,0 +1,424 @@
+<!-- htmlhint-disable -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLX LLM Tutorial - Build LLMs with Apple Silicon</title>
+    <link rel="stylesheet" href="styles/mlx-styles.css">
+    <style>
+        .warning-box {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        .warning-box strong {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>Building LLMs with Apple MLX</h1>
+                <p class="subtitle">A comprehensive tutorial for creating Large Language Models optimized for Apple Silicon</p>
+                <div>
+                    <a href="https://github.com/ddttom/mlx-llm-tutorial" class="cta-button">View on GitHub</a>
+                    <a href="documentation.html" class="cta-button">Documentation</a>
+                    <a href="#getting-started" class="cta-button secondary-button">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="overview">
+        <div class="container">
+            <div class="section-header">
+                <h2>Project Overview</h2>
+                <p>Learn how to build, train, and deploy Large Language Models using Apple's MLX framework, designed specifically for Apple Silicon hardware.</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Comprehensive Documentation</h3>
+                    <p>Detailed explanations of MLX, LLM architecture, and implementation details to help you understand the fundamentals.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Practical Code Examples</h3>
+                    <p>Working implementations of LLMs, from simple character-level models to fine-tuning pre-trained models on custom datasets.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📓</div>
+                    <h3>Interactive Jupyter Notebooks</h3>
+                    <p>Learn concepts hands-on with interactive notebooks that combine explanations, code, and visualizations for an immersive learning experience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Interactive Web Interface</h3>
+                    <p>Experiment with your trained models through a user-friendly web interface with visualization tools for model interpretability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="what-is-mlx">
+        <div class="container">
+            <div class="section-header">
+                <h2>What is MLX?</h2>
+            </div>
+            
+            <div class="row">
+                <div>
+                    <p>MLX is Apple's machine learning framework designed specifically for Apple Silicon. It provides a NumPy-like API that makes it familiar to machine learning researchers and engineers, while leveraging the performance advantages of Apple's M-series chips.</p>
+                    
+                    <p>Key features of MLX include:</p>
+                    <ul class="feature-list">
+                        <li>Optimized for Apple Silicon (M1/M2/M3 chips)</li>
+                        <li>NumPy-like API for ease of use</li>
+                        <li>Support for automatic differentiation</li>
+                        <li>Efficient memory usage through composable function transformations</li>
+                        <li>Multi-device training capabilities</li>
+                    </ul>
+                    
+                    <p>MLX takes advantage of Apple Silicon's unified memory architecture, which means data doesn't need to be copied between CPU and GPU memory, resulting in faster computation and more efficient memory usage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="llm-architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2>LLM Architecture</h2>
+                <p>Understanding the architecture behind Large Language Models</p>
+            </div>
+            
+            <p>Most modern LLMs are based on the Transformer architecture, introduced in the paper "Attention Is All You Need" by Vaswani et al. in 2017. The key innovation of Transformers is the ability to process all words in a sequence simultaneously while still capturing dependencies between words regardless of their distance in the text.</p>
+            
+            <div class="architecture">
+                <div class="diagram">
+                    <div class="diagram-content">
+                        <div class="diagram-box diagram-box-title">Input Text</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-box">Tokenization</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-box">Embedding Layer (Token + Position)</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-box diagram-box-green">
+                            <div class="transformer-title">Transformer Blocks</div>
+                            <div class="transformer-container">
+                                <div class="transformer-box-left">
+                                    Self-Attention
+                                </div>
+                                <div class="transformer-box-right">
+                                    Feed-Forward Network
+                                </div>
+                            </div>
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-box">Output Layer</div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="diagram-box diagram-box-title">Generated Text</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p>Our tutorial covers the implementation of this architecture using MLX, with detailed explanations of each component and how they work together to create a functioning language model.</p>
+        </div>
+    </section>
+
+    <section id="getting-started">
+        <div class="container">
+            <div class="section-header">
+                <h2>Getting Started</h2>
+                <p>Follow these steps to begin building your own LLMs with MLX</p>
+            </div>
+            
+            <ol class="steps">
+                <li class="step">
+                    <h3>Install Prerequisites</h3>
+                    <p>Make sure you have the following tools installed on your Mac with Apple Silicon:</p>
+                    <ul class="feature-list">
+                        <li>Install Git - Version control system to clone the repository</li>
+                        <li>Install Miniconda - Required for Python environment management</li>
+                        <li>Install Jupyter Notebook - Required for interactive tutorials and experimentation</li>
+                    </ul>
+                    <p>Miniconda and Jupyter Notebook are essential for this project as they provide optimal environment isolation, package management, and interactive learning capabilities for machine learning on Apple Silicon.</p>
+                    <p><a href="documentation.html#doc-installation" class="cta-button">View Comprehensive Installation Guide</a></p>
+                </li>
+                
+                <li class="step">
+                    <h3>Set Up Your Environment</h3>
+                    <p>Make sure you have a Mac with Apple Silicon (M1/M2/M3) and set up your Miniconda environment.</p>
+                    <div class="warning-box">
+                        <strong>⚠️ IMPORTANT:</strong> Always work in a dedicated directory. Never clone or run this project directly in your Documents, Downloads, or other system folders.
+                        <br><br>
+                        <strong>ALWAYS use the dedicated ~/ai-training directory for your projects</strong>
+                        <br><br>
+                        <strong>Use the one-step installation method for Miniconda:</strong>
+                        <pre style="background-color: #333; color: #fff; padding: 0.5rem; border-radius: 3px; margin-top: 0.5rem;">curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash</pre>
+                    </div>
+                    <div class="code-block">
+                        <pre><span class="code-comment"># Create a dedicated directory for AI training projects</span>
+mkdir -p ~/ai-training
+cd ~/ai-training
+
+<span class="code-comment"># Clone the repository</span>
+git clone https://github.com/ddttom/mlx-llm-tutorial
+cd mlx-llm-tutorial
+
+<span class="code-comment"># Create and activate Miniconda environment</span>
+conda create -n mlx-env python=3.10
+conda activate mlx-env
+
+<span class="code-comment"># Install dependencies</span>
+pip install -r requirements.txt</pre>
+                    </div>
+                </li>
+                
+                <li class="step">
+                    <h3>Launch Jupyter Notebook</h3>
+                    <p>Start Jupyter Notebook to explore the interactive tutorials:</p>
+                    
+                    <div class="code-block">
+                        <pre><span class="code-comment"># Make sure your Miniconda environment is activated</span>
+conda activate mlx-env
+
+<span class="code-comment"># Launch Jupyter Notebook</span>
+jupyter notebook</pre>
+                    </div>
+                    <p>This will open a browser window where you can navigate to the <code>notebooks/</code> directory and open any of the tutorial notebooks.</p>
+                </li>
+                
+                <li class="step">
+                    <h3>Explore the Documentation</h3>
+                    <p>Read through the documentation to understand MLX, LLM architecture, and the project structure.</p>
+                    <p>Start with the <code>public/docs/installation.md</code>, <code>public/docs/intro-to-mlx.md</code>, and <code>public/docs/llm-architecture.md</code> files.</p>
+                    <p><a href="documentation.html#doc-installation" class="cta-button">View Installation Guide</a> <a href="documentation.html" class="cta-button secondary-button">View All Documentation</a></p>
+                </li>
+                
+                <li class="step">
+                    <h3>Follow the Tutorials</h3>
+                    <p>Work through the step-by-step tutorials to build your first LLM.</p>
+                    <p>Begin with <code>tutorials/simple-llm.md</code> to create a basic character-level language model.</p>
+                </li>
+                
+                <li class="step">
+                    <h3>Experiment with the Web Interface</h3>
+                    <p>Use the interactive web interface to experiment with your trained models.</p>
+                    <div class="code-block">
+                        <pre><span class="code-comment"># Make sure your Miniconda environment is activated</span>
+conda activate mlx-env
+
+<span class="code-comment"># Start the web interface server</span>
+cd code/web_interface
+python server.py
+
+<span class="code-comment"># Open your browser and navigate to:</span>
+# http://localhost:8000</pre>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="jupyter-notebooks">
+        <div class="container">
+            <div class="section-header">
+                <h2>Jupyter Notebooks</h2>
+                <p>Interactive learning and experimentation</p>
+            </div>
+            
+            <p>This project uses Jupyter Notebooks for interactive learning and experimentation. Notebooks provide several advantages:</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Interactive Execution</h3>
+                    <p>Run code cells individually and see results immediately, making it easier to understand complex concepts.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Rich Visualization</h3>
+                    <p>Display charts, graphs, and other visual elements inline to better understand model behavior and performance.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Narrative Documentation</h3>
+                    <p>Combine code, explanations, and results in a single document for a comprehensive learning experience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Experimentation</h3>
+                    <p>Easily modify parameters and see the effects in real-time, encouraging exploration and deeper understanding.</p>
+                </div>
+            </div>
+            
+            <div class="jupyter-options">
+                <div class="option-card">
+                    <h3>Jupyter Notebook Interface</h3>
+                    <p>The browser-based interface provides a comprehensive notebook experience:</p>
+                    <ul>
+                        <li>Cell-by-cell execution</li>
+                        <li>Rich output display</li>
+                        <li>Markdown support</li>
+                        <li>File browser</li>
+                        <li>Interactive data visualization</li>
+                        <li>Accessible via `jupyter notebook` command</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>Our notebooks cover various aspects of LLM development, from basic concepts to advanced techniques. They're designed to be accessible to beginners while providing depth for more experienced developers.</p>
+        </div>
+    </section>
+
+    <section id="project-structure">
+        <div class="container">
+            <div class="section-header">
+                <h2>Project Structure</h2>
+                <p>Understanding how the project is organized</p>
+            </div>
+            
+            <div class="structure">
+<pre>mlx-llm-tutorial/
+├── README.md                 # Main project overview
+├── LICENSE                   # MIT License
+├── .gitignore                # Git ignore file
+├── requirements.txt          # Python dependencies
+├── public/docs/              # Documentation
+│   ├── installation.md       # Installation guide
+│   ├── intro-to-mlx.md       # Introduction to MLX
+│   ├── llm-architecture.md   # LLM architecture explanation
+│   └── resources.md          # Additional resources and references
+├── notebooks/                # Jupyter notebooks
+│   ├── intro-to-mlx.ipynb    # Interactive MLX introduction
+│   ├── simple-llm.ipynb      # Building a simple LLM
+│   ├── fine-tuning.ipynb     # Fine-tuning pre-trained models
+│   └── visualization.ipynb   # Model visualization techniques
+├── tutorials/                # Step-by-step tutorials
+│   └── simple-llm.md         # Tutorial for building a simple LLM
+├── code/                     # Code examples
+│   ├── simple_llm.py         # Simple LLM implementation
+│   ├── finetune_llm.py       # Fine-tuning implementation
+│   ├── sample_dataset.json   # Sample dataset for fine-tuning
+│   └── web_interface/        # Web interface for model interaction
+│       ├── index.html        # Frontend HTML
+│       ├── styles.css        # CSS styles
+│       ├── script.js         # Frontend JavaScript
+│       ├── server.py         # Backend Flask server
+│       └── README.md         # Web interface documentation</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="documentation-link">
+        <div class="container">
+            <div class="section-header">
+                <h2>Documentation</h2>
+                <p>Access comprehensive documentation for MLX and LLM development</p>
+            </div>
+            
+            <div class="cta-container">
+                <a href="documentation.html" class="cta-button">View Documentation</a>
+                <p>Our documentation includes detailed guides on MLX, LLM architecture, and step-by-step tutorials to help you build your own language models.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2>Resources</h2>
+                <p>Additional resources to help you learn more about MLX and LLMs</p>
+            </div>
+            
+            <ul class="resources-list">
+                <li class="resource-item">
+                    <h3>MLX Documentation</h3>
+                    <p>Official documentation for Apple's MLX framework</p>
+                    <a href="https://ml-explore.github.io/mlx/build/html/index.html" target="_blank" rel="noopener noreferrer">Visit →</a>
+                </li>
+                
+                <li class="resource-item">
+                    <h3>MLX GitHub Repository</h3>
+                    <p>Source code and examples for the MLX framework</p>
+                    <a href="https://github.com/ml-explore/mlx" target="_blank" rel="noopener noreferrer">Visit →</a>
+                </li>
+                
+                <li class="resource-item">
+                    <h3>Jupyter Documentation</h3>
+                    <p>Learn more about using Jupyter Notebooks effectively</p>
+                    <a href="https://jupyter.org/documentation" target="_blank" rel="noopener noreferrer">Visit →</a>
+                </li>
+                
+                
+                <li class="resource-item">
+                    <h3>Attention Is All You Need</h3>
+                    <p>The original paper introducing the Transformer architecture</p>
+                    <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener noreferrer">Read →</a>
+                </li>
+                
+                <li class="resource-item">
+                    <h3>The Illustrated Transformer</h3>
+                    <p>Visual explanation of the Transformer architecture</p>
+                    <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener noreferrer">Visit →</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>MLX LLM Tutorial - A project by Tom Cranstoun</p>
+            <div class="footer-links">
+                <a href="https://github.com/ddttom/mlx-llm-tutorial">GitHub</a>
+                <a href="documentation.html">Documentation</a>
+                <a href="LICENSE">License</a>
+            </div>
+            <p>© 2025 - Released under the MIT License</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle direct links to documentation
+            const handleHashChange = () => {
+                const hash = window.location.hash;
+                if (hash.startsWith('#doc-')) {
+                    const docName = hash.replace('#doc-', '');
+                    window.location.href = `documentation.html#doc-${docName}`;
+                }
+            };
+            
+            // Check for hash on page load
+            handleHashChange();
+            
+            // Listen for hash changes
+            window.addEventListener('hashchange', handleHashChange);
+            
+            // Update documentation links to use the hash navigation
+            document.querySelectorAll('a[href^="public/docs/"], a[href^="docs/"], a[href^="tutorials/"]').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href.endsWith('.md')) {
+                    const docName = href.split('/').pop().replace('.md', '');
+                    link.setAttribute('href', `documentation.html#doc-${docName}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
