@@ -6,19 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MLX LLM Tutorial - Build LLMs with Apple Silicon</title>
     <link rel="stylesheet" href="styles/mlx-styles.css">
-    <style>
-        .warning-box {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid #ffc107;
-            border-radius: 4px;
-        }
-        .warning-box strong {
-            margin-right: 0.5rem;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -165,7 +152,7 @@
                         <strong>ALWAYS use the dedicated ~/ai-training directory for your projects</strong>
                         <br><br>
                         <strong>Use the one-step installation method for Miniconda:</strong>
-                        <pre style="background-color: #333; color: #fff; padding: 0.5rem; border-radius: 3px; margin-top: 0.5rem;">curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash</pre>
+                        <pre class="warning-box-pre">curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash</pre>
                     </div>
                     <div class="code-block">
                         <pre><span class="code-comment"># Clone the repository</span>

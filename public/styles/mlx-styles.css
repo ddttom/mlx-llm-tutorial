@@ -648,6 +648,28 @@ footer {
     margin: 2rem 0;
 }
 
+/* Warning Box Styles */
+.warning-box {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+}
+
+.warning-box strong {
+    margin-right: 0.5rem;
+}
+
+.warning-box-pre {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+}
+
 /* Language-specific syntax highlighting */
 .language-python {
     color: #f8f8f8;
