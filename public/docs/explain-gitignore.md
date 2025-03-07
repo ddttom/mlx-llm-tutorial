@@ -369,6 +369,7 @@ We specifically exclude installer files like the Miniconda installer (`Miniconda
 > **ALWAYS use the dedicated ~/ai-training directory for your projects**
 >
 > **Use the one-step installation method for Miniconda that doesn't save the installer file:**
+>
 > ```bash
 > curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
 > ```

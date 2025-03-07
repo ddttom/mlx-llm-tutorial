@@ -7,6 +7,7 @@
 **Issue:** The git repository had issues that needed to be fixed with a clean initialization and force push.
 
 **Solution:**
+
 1. Initialized a new git repository in the current directory
 2. Renamed the default branch to 'main'
 3. Added all files and created an initial commit
@@ -20,6 +21,7 @@
 **Issue:** The project instructions did not clearly specify that users should work in a dedicated directory, which led to issues with large files being added to the repository when run in system folders.
 
 **Solution:**
+
 1. Added explicit warnings and instructions in multiple files:
    - Added warning boxes and clear instructions in `README.md`
    - Added a critical instruction section in `public/docs/installation.md`
@@ -27,6 +29,7 @@
    - Added a warning box with CSS styling in `public/index.html`
 
 2. Changed Miniconda installation instructions to use a one-step method that doesn't save the installer file:
+
    ```bash
    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
    ```
@@ -38,6 +41,7 @@
 **Issue:** Users need an easy way to remove the large Miniconda installer file from Git history to fix the GitHub file size limit error.
 
 **Solution:**
+
 1. Created two automated scripts to handle the large file removal process:
    - `fix-large-file.sh` - Bash script for macOS/Linux users
    - `fix-large-file.bat` - Batch file for Windows users
@@ -57,8 +61,10 @@
 **Issue:** The repository included a large file (Miniconda3-latest-MacOSX-arm64.sh, 111.77 MB) that exceeds GitHub's file size limit of 100MB, causing push operations to fail.
 
 **Solution:**
+
 1. Updated `.gitignore` to exclude the Miniconda installer and other installer files:
-   ```
+
+   ```bash
    # Installers
    Miniconda3-latest-MacOSX-arm64.sh
    *.exe
@@ -70,6 +76,7 @@
    ```
 
 2. Modified installation instructions in `public/docs/installation.md` to download and run the installer in one step without saving it to the repository:
+
    ```bash
    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
    ```
