@@ -171,6 +171,7 @@ mlx-llm-tutorial/
 ```
 
 ## 7. Implementation Plan
+
 ### 7.1 Phase 1: Documentation and Basic Structure
 
 - Create project structure and repository
@@ -184,9 +185,11 @@ mlx-llm-tutorial/
 > **ALWAYS use the dedicated ~/ai-training directory for your projects**
 >
 > **Use the one-step installation method for Miniconda:**
+>
 > ```bash
 > curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
 > ```
+>
 - Compile resources and references
 
 ### 7.2 Phase 2: Core Implementation and Jupyter Notebooks

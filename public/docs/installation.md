@@ -16,6 +16,7 @@ This guide will walk you through setting up your environment for developing LLMs
 > **ALWAYS use the dedicated ~/ai-training directory for your projects**
 >
 > **Use the one-step installation method for Miniconda:**
+>
 > ```bash
 > curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
 > ```
