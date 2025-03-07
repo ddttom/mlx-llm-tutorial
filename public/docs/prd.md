@@ -178,7 +178,6 @@ mlx-llm-tutorial/
 - Write installation guide for Miniconda, Jupyter, and MLX
 - Develop introduction to MLX
 - Create LLM architecture documentation
-- Compile resources and references
 
 > **CRITICAL INSTRUCTION**:
 >
