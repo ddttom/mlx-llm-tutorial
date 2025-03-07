@@ -19,13 +19,15 @@ A comprehensive tutorial and code repository for building, training, and deployi
 > ```
 
 ```bash
-# Create a dedicated directory for AI training projects
-mkdir -p ~/ai-training
-cd ~/ai-training
 
 # Clone the repository
 git clone https://github.com/ddttom/mlx-llm-tutorial
 cd mlx-llm-tutorial
+# Create a dedicated directory for AI training projects
+mkdir -p ~/ai-training
+cp requirements.txt ~/ai-training 
+cd ~/ai-training
+
 
 # Set up Miniconda environment
 conda create -n mlx-env python=3.10

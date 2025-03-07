@@ -22,8 +22,13 @@ This guide will walk you through setting up your environment for developing LLMs
 > ```
 
 ```bash
+# Clone the repository
+git clone https://github.com/ddttom/mlx-llm-tutorial
+cd mlx-llm-tutorial
+
 # Create a new directory for AI training projects
 mkdir -p ~/ai-training
+cp requirements.txt ~/ai-training
 
 # Navigate to the new directory
 cd ~/ai-training

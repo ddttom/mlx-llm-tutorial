@@ -168,13 +168,14 @@
                         <pre style="background-color: #333; color: #fff; padding: 0.5rem; border-radius: 3px; margin-top: 0.5rem;">curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash</pre>
                     </div>
                     <div class="code-block">
-                        <pre><span class="code-comment"># Create a dedicated directory for AI training projects</span>
-mkdir -p ~/ai-training
-cd ~/ai-training
-
-<span class="code-comment"># Clone the repository</span>
+                        <pre><span class="code-comment"># Clone the repository</span>
 git clone https://github.com/ddttom/mlx-llm-tutorial
 cd mlx-llm-tutorial
+<span class="code-comment"># Create a dedicated directory for AI training projects</span>
+mkdir -p ~/ai-training
+cp requirements.txt ~/ai-training
+cd ~/ai-training
+
 
 <span class="code-comment"># Create and activate Miniconda environment</span>
 conda create -n mlx-env python=3.10
