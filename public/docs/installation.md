@@ -11,15 +11,11 @@ This guide will walk you through setting up your environment for developing LLMs
 
 ## Create Project Directory
 
-> **CRITICAL INSTRUCTION**: You must create and use a dedicated directory for your AI training projects. Do NOT clone or run this project directly in your system folders (like Documents or Downloads) to avoid potential issues with large files and system conflicts.
+> **CRITICAL INSTRUCTION**: You must create and use a dedicated directory for your AI training projects.
+> Do NOT clone or run this project directly in your system folders (like Documents or Downloads) to avoid potential issues with large files and system conflicts.
 >
 > **ALWAYS use the dedicated ~/ai-training directory for your projects**
 >
-> **Use the one-step installation method for Miniconda:**
->
-> ```bash
-> curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
-> ```
 
 ```bash
 # Clone the repository
@@ -43,12 +39,9 @@ Miniconda is required for this project as it provides the optimal environment fo
 ### Download and Install Miniconda
 
 ```bash
-# Download and run the Miniconda installer in one step (without saving the file)
+# Download and run the Miniconda installer in one step 
 curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh | bash
 
-# Alternatively, if you prefer to download first:
-# curl -o ~/Downloads/Miniconda3-latest-MacOSX-arm64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-# bash ~/Downloads/Miniconda3-latest-MacOSX-arm64.sh
 ```
 
 During the installation, you'll see several prompts. Here's what to expect and how to respond:

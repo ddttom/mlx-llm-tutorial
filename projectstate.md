@@ -130,6 +130,70 @@
 
 **Result:** Now when a user clicks the copy button on a code block containing HTML entities (like `&quot;`), they will be properly decoded to their original characters (like `"`) before being copied to the clipboard. This ensures that code snippets like `python -c "import mlx; print(mlx.__version__)"` are copied correctly with proper quotation marks instead of HTML entities.
 
+### Added Blockquote Support in Markdown Renderer
+
+**Issue:** The markdown renderer was not converting blockquote syntax (lines starting with ">") into proper HTML blockquote elements, causing important instructions and notes to display incorrectly.
+
+**Solution:**
+
+1. Added a new regex pattern to detect blockquotes in the `MarkdownParser` class:
+
+   ```javascript
+   blockquote: /^>\s*(.+)$/gm
+   ```
+
+2. Updated the paragraph pattern to exclude blockquote lines:
+
+   ```javascript
+   paragraph: /^(?!<[a-z]|#{1,6}\s|```|\*|\d+\.\s|\-\s|\||>)(.+)$/gm
+   ```
+
+3. Implemented a robust approach to process blockquotes that properly combines consecutive blockquote lines:
+
+   ```javascript
+   // Process blockquotes - handle consecutive lines
+   const blockquoteLines = html.split('\n');
+   let inBlockquote = false;
+   let blockquoteContent = '';
+   const blockquoteProcessedLines = [];
+   
+   for (let i = 0; i < blockquoteLines.length; i++) {
+     const currentLine = blockquoteLines[i];
+     const blockquoteMatch = currentLine.match(/^>\s*(.*)/);
+     
+     if (blockquoteMatch) {
+       // This is a blockquote line
+       if (!inBlockquote) {
+         // Start a new blockquote
+         inBlockquote = true;
+         blockquoteContent = blockquoteMatch[1];
+       } else {
+         // Continue the current blockquote
+         blockquoteContent += '\n' + blockquoteMatch[1];
+       }
+     } else {
+       // This is not a blockquote line
+       if (inBlockquote) {
+         // End the current blockquote
+         blockquoteProcessedLines.push(`<blockquote>${blockquoteContent}</blockquote>`);
+         inBlockquote = false;
+         blockquoteContent = '';
+       }
+       
+       // Add the current line
+       blockquoteProcessedLines.push(currentLine);
+     }
+   }
+   ```
+
+4. Moved the blockquote processing earlier in the parsing flow, before headers and paragraphs are processed, to ensure proper handling of blockquote syntax.
+
+5. Ensured that consecutive blockquote lines are combined into a single blockquote element, which is essential for properly formatting multi-line critical instructions.
+
+6. Updated the markdown-renderer-README.md documentation to include information about blockquote handling and styling.
+
+**Result:** Important instructions and notes formatted with ">" at the beginning of lines are now properly rendered as blockquotes in the HTML output, making them visually distinct and properly formatted. This improves the readability of critical instructions in the documentation.
+
 ## Current Features
 
 - Markdown rendering with support for:
@@ -142,6 +206,7 @@
   - Images
   - Ordered and unordered lists
   - Tables
+  - Blockquotes
   - Horizontal rules
 - Copy to clipboard functionality for code blocks
 - Line numbers for code blocks

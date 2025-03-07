@@ -35,7 +35,7 @@ The `MarkdownParser` class uses regular expressions to identify and convert mark
 ```javascript
 this.patterns = {
   header: /^(#{1,6})\s+(.+)$/gm,
-  paragraph: /^(?!<[a-z]|#{1,6}\s|```|\*|\d+\.\s|\-\s|\|)(.+)$/gm,
+  paragraph: /^(?!<[a-z]|#{1,6}\s|```|\*|\d+\.\s|\-\s|\||>)(.+)$/gm,
   codeBlock: /```([a-z]*)\n([\s\S]*?)```/gm,
   inlineCode: /`([^`]+)`/g,
   bold: /\*\*([^*]+)\*\*/g,
@@ -46,7 +46,8 @@ this.patterns = {
   horizontalRule: /^---$/gm,
   image: /!\[([^\]]+)\]\(([^)]+)\)/g,
   tableRow: /^\|(.+)\|$/gm,
-  tableHeader: /^\|((?:[ \t]*:?-+:?[ \t]*\|)+)$/gm
+  tableHeader: /^\|((?:[ \t]*:?-+:?[ \t]*\|)+)$/gm,
+  blockquote: /^>\s*(.+)$/gm
 };
 ```
 
@@ -54,7 +55,7 @@ The parsing process:
 
 1. Pre-processes the markdown to normalize line endings and clean up whitespace
 2. Extracts code blocks and replaces them with placeholders to prevent processing their contents
-3. Processes tables, headers, paragraphs, and other markdown elements
+3. Processes tables, headers, paragraphs, blockquotes, and other markdown elements
 4. Processes links with special handling for markdown files and folder references
 5. Restores code blocks with enhanced formatting
 6. Post-processes the HTML for final cleanup
@@ -321,6 +322,62 @@ _generateTableHtml(rows, hasHeader, alignments) {
 }
 ```
 
+## Blockquote Handling
+
+Markdown blockquotes (lines starting with `>`) are processed and converted to HTML blockquote elements:
+
+1. Blockquote lines are identified by lines starting with `>`
+2. Consecutive blockquote lines are combined into a single blockquote element
+3. The content is extracted without the `>` prefix
+4. The resulting HTML uses `<blockquote>` tags to properly format the content
+
+```javascript
+// Process blockquotes - handle consecutive lines
+// First, identify consecutive blockquote lines and combine them
+const blockquoteLines = html.split('\n');
+let inBlockquote = false;
+let blockquoteContent = '';
+const blockquoteProcessedLines = [];
+
+for (let i = 0; i < blockquoteLines.length; i++) {
+  const currentLine = blockquoteLines[i];
+  const blockquoteMatch = currentLine.match(/^>\s*(.*)/);
+  
+  if (blockquoteMatch) {
+    // This is a blockquote line
+    if (!inBlockquote) {
+      // Start a new blockquote
+      inBlockquote = true;
+      blockquoteContent = blockquoteMatch[1];
+    } else {
+      // Continue the current blockquote
+      blockquoteContent += '\n' + blockquoteMatch[1];
+    }
+  } else {
+    // This is not a blockquote line
+    if (inBlockquote) {
+      // End the current blockquote
+      blockquoteProcessedLines.push(`<blockquote>${blockquoteContent}</blockquote>`);
+      inBlockquote = false;
+      blockquoteContent = '';
+    }
+    
+    // Add the current line
+    blockquoteProcessedLines.push(currentLine);
+  }
+}
+
+// If we're still in a blockquote at the end, close it
+if (inBlockquote) {
+  blockquoteProcessedLines.push(`<blockquote>${blockquoteContent}</blockquote>`);
+}
+
+// Join the lines back together
+html = blockquoteProcessedLines.join('\n');
+```
+
+This approach ensures that multi-line blockquotes are properly combined into a single HTML element, preserving the formatting and making the content visually distinct in the rendered output.
+
 ## CSS Styling
 
 The renderer relies on CSS styles defined in `public/styles/mlx-styles.css` for visual presentation. Key style components include:
@@ -466,6 +523,29 @@ The renderer relies on CSS styles defined in `public/styles/mlx-styles.css` for 
     position: sticky;
     top: 0;
     color: #333; /* Darker text for better contrast */
+}
+```
+
+### Blockquote Styling
+
+```css
+.markdown-container blockquote {
+    background-color: #f8f8f8;
+    border-left: 4px solid #0070c9; /* Apple blue color for the left border */
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    color: #333;
+    font-style: italic;
+    border-radius: 0 5px 5px 0;
+}
+
+.markdown-container blockquote p {
+    margin: 0.5rem 0;
+}
+
+.markdown-container blockquote strong {
+    color: #0070c9; /* Highlight important text within blockquotes */
+    font-style: normal;
 }
 ```
 

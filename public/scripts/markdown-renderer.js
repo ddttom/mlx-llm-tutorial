@@ -9,7 +9,7 @@ class MarkdownParser {
     // Define regex patterns for markdown syntax
     this.patterns = {
       header: /^(#{1,6})\s+(.+)$/gm,
-      paragraph: /^(?!<[a-z]|#{1,6}\s|```|\*|\d+\.\s|\-\s|\|)(.+)$/gm,
+      paragraph: /^(?!<[a-z]|#{1,6}\s|```|\*|\d+\.\s|\-\s|\||>)(.+)$/gm,
       codeBlock: /```([a-z]*)\n([\s\S]*?)```/gm,
       inlineCode: /`([^`]+)`/g,
       bold: /\*\*([^*]+)\*\*/g,
@@ -21,7 +21,9 @@ class MarkdownParser {
       image: /!\[([^\]]+)\]\(([^)]+)\)/g,
       // Table pattern - matches markdown tables
       tableRow: /^\|(.+)\|$/gm,
-      tableHeader: /^\|((?:[ \t]*:?-+:?[ \t]*\|)+)$/gm
+      tableHeader: /^\|((?:[ \t]*:?-+:?[ \t]*\|)+)$/gm,
+      // Blockquote pattern - matches lines starting with >
+      blockquote: /^>\s*(.+)$/gm
     };
   }
 
@@ -49,6 +51,49 @@ class MarkdownParser {
     
     // Process tables
     html = this._processTables(html);
+    
+    // Process blockquotes - handle consecutive lines
+    // First, identify consecutive blockquote lines and combine them
+    const blockquoteLines = html.split('\n');
+    let inBlockquote = false;
+    let blockquoteContent = '';
+    const blockquoteProcessedLines = [];
+    
+    for (let i = 0; i < blockquoteLines.length; i++) {
+      const currentLine = blockquoteLines[i];
+      const blockquoteMatch = currentLine.match(/^>\s*(.*)/);
+      
+      if (blockquoteMatch) {
+        // This is a blockquote line
+        if (!inBlockquote) {
+          // Start a new blockquote
+          inBlockquote = true;
+          blockquoteContent = blockquoteMatch[1];
+        } else {
+          // Continue the current blockquote
+          blockquoteContent += '\n' + blockquoteMatch[1];
+        }
+      } else {
+        // This is not a blockquote line
+        if (inBlockquote) {
+          // End the current blockquote
+          blockquoteProcessedLines.push(`<blockquote>${blockquoteContent}</blockquote>`);
+          inBlockquote = false;
+          blockquoteContent = '';
+        }
+        
+        // Add the current line
+        blockquoteProcessedLines.push(currentLine);
+      }
+    }
+    
+    // If we're still in a blockquote at the end, close it
+    if (inBlockquote) {
+      blockquoteProcessedLines.push(`<blockquote>${blockquoteContent}</blockquote>`);
+    }
+    
+    // Join the lines back together
+    html = blockquoteProcessedLines.join('\n');
     
     // Process headers
     html = html.replace(this.patterns.header, (match, hashes, content) => {
